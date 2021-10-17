@@ -1,0 +1,168 @@
+.game__info {
+  width: 80%;
+  margin: 20px auto;
+  background-color: var(--blue);
+  /* padding:30px; */
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  color: white;
+}
+.current__prize {
+  margin-top: 20px;
+  background-color: var(--cyan);
+}
+.current__prize > h5 {
+  font-weight: 900;
+  font-size: 25px;
+  margin: 0;
+  color: black;
+}
+.current__prize > h1 {
+  margin: 0;
+  font-weight: 900;
+  color: white;
+}
+.icon {
+  width: 56px;
+  height: 56px;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+#play__quiz {
+  background-color: var(--red);
+  width: fit-content;
+  margin: 0 auto;
+  cursor: pointer;
+  padding: 0 5px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+#play__quiz:hover {
+  background-color: var(--blue);
+}
+#play__quiz > h1 {
+  font-weight: 900;
+  color: white;
+}
+#play__quiz > p {
+  font-weight: 900;
+  color: white;
+}
+.gameinfo__h2 {
+  font-weight: 900;
+}
+.quizando__logo {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  margin: 30px auto;
+}
+.quizando__logo__img {
+  height: 200px;
+  width: 200px;
+  border-radius: 180%;
+  border: 5px solid;
+  border-color: lightgoldenrodyellow;
+}
+.quizando__text {
+  background-color: var(--red);
+  border-radius: 0px 0px 20px 20px;
+  border: 5px solid;
+  border-color: lightgoldenrodyellow;
+}
+.quizando__text > span {
+  font-weight: 900;
+  color: white;
+  font-size: 25px;
+}
+.final__entry {
+  text-align: center;
+  width: 80%;
+  margin: 20px auto;
+  background-color: rgb(233, 233, 233);
+}
+.final__entry__title {
+  padding-top: 20px;
+  font-size: 2.5em;
+  font-family: "Paytone One", sans-serif;
+}
+.description__btns {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 10px auto;
+  position: relative;
+  text-align: center;
+  font-size: 17px;
+}
+.description__btns > h4 {
+  font-family: "Paytone One", sans-serif;
+  font-weight: 800 !important;
+  font-size: 1em !important;
+  background-color: white;
+  color: var(--red);
+  border-radius: 5px;
+  margin: 2px;
+  padding: 5px 8px;
+  background: #fff;
+}
+.game__text {
+  background-color: transparent !important;
+  font-size: 20px;
+  width: 100% !important;
+  margin: 10px;
+  font-weight: 500;
+  opacity: 0.8;
+  text-align: center;
+  align-items: center;
+}
+.final__entry__btns {
+  font-family: "Paytone One", sans-serif;
+  display: flex;
+  width: fit-content;
+  margin: 0 auto;
+}
+.final__entry__btns:hover {
+}
+.final__entry__btns > button {
+  padding: 5px 15px;
+  font-weight: 800;
+  color: white;
+  font-size: 20px;
+  border: none;
+  margin: 0 10px;
+  border-radius: 6px;
+  margin-bottom: 30px;
+}
+
+.final__entry__btns > button:nth-child(1) {
+  background-color: var(--cyan);
+}
+.final__entry__btns > button:nth-child(2) {
+  background-color: var(--yellow);
+}
+.final__entry__btns > button:nth-child(3) {
+  background-color: var(--red);
+}
+.final__entry__btns > button:nth-child(1):hover {
+  background-color: var(--yellow);
+  transition: 0.6s;
+}
+.final__entry__btns > button:nth-child(2):hover {
+  background-color: var(--yellow);
+  transition: 0.6s;
+}
+.final__entry__btns > button:nth-child(3):hover {
+  background-color: var(--yellow);
+  transition: 0.6s;
+}
+@media only screen and (max-width: 600px) {
+  .final__entry__btns {
+    display: flex;
+    flex-direction: column;
+  }
+  .final__entry__btns > button {
+    margin-bottom: 5px;
+  }
+}
