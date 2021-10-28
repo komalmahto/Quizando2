@@ -27,7 +27,7 @@ import LiveQuiz from "./components/Quiz/LiveQuiz";
 import Home from "./components/Home/Home";
 function App() {
   const { user } = useContext(AuthContext);
-  console.log(user);
+  //console.log(user);
   //{{URL}}/quiz/fetch?type=classic
   return (
     <>

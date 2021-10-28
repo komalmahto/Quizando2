@@ -9,7 +9,7 @@ function CommonFreeClassic(props) {
       const res = await axios.get(`${USER_SERVER}/quiz/${props.link}`);
       //console.log(res.data.payload.quizzes);
       setfetchQues(res.data.payload.quizzes);
-      console.log(res.data.payload.quizzes);
+      //console.log(res.data.payload.quizzes);
     };
     fetchQuiz();
   }, []);

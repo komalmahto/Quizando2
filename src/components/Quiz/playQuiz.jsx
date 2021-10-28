@@ -7,7 +7,7 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
-import Question from "../Question";
+
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import ResultModel from "../ResultModle";
@@ -24,7 +24,7 @@ function PlayQuiz() {
     const URL = ` http://13.233.83.134:8010/common/quiz/end?resultId=${resultId}`;
     try {
       const res = await axios.get(URL);
-      console.log(res.data);
+      //console.log(res.data);
       setResult(res.data);
       setEnded(true);
     } catch (error) {
@@ -48,7 +48,7 @@ function PlayQuiz() {
     const URL = ` http://13.233.83.134:8010/common/quiz/end?resultId=${resultId}`;
     try {
       const res = await axios.get(URL);
-      console.log(res.data);
+      //console.log(res.data);
       setResult(res.data);
       setEnded(true);
     } catch (error) {
@@ -62,7 +62,7 @@ function PlayQuiz() {
 
       try {
         const res = await axios.get(URL);
-        console.log(res.data);
+        //console.log(res.data);
         const Questions = res.data.payload.questions;
         const ResultId = res.data.payload.resultId;
         //console.log(Questions, ResultId);

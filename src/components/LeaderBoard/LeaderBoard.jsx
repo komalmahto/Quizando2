@@ -53,14 +53,14 @@ export default function Leaderboard(props) {
         `${USER_SERVER}/quiz/${props.id}/leaderboard`
       );
       setLeaderBoard(leaderData.data.payload.result);
-      console.log(leaderData.data.payload);
+      //console.log(leaderData.data.payload);
     };
     leaderboard();
   }, []);
   let rows = [];
   leaderBoard &&
     leaderBoard.map((item, idx) => {
-      console.log(item.score);
+      //console.log(item.score);
       rows &&
         rows.push(
           createData(
@@ -72,7 +72,7 @@ export default function Leaderboard(props) {
         );
     });
   //console.log(rows[0].points);
-  console.log("yesss");
+  //console.log("yesss");
   return (
     <>
       <div className="leaderboard__title">

@@ -8,7 +8,7 @@ import moment from "moment";
 // );
 // moment.tz.link("Asia/Calcutta|Asia/Kolkata");
 function quizCard(props) {
-  console.log(props.quizDetail);
+  //console.log(props.quizDetail);
 
   //const thisMoment = moment.utc(quizDetail.endDate).format("h:mm");
   // if (quizDetail)

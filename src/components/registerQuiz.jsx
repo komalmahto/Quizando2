@@ -18,6 +18,7 @@ function RegisterQuiz() {
       const res = await axios.post(
         `${USER_SERVER}/quiz/register?apiKey=93183bfbec25fe370ee6d69163ca9f1b5c1d57ed1352261007c35c63d32a8e43&quizId=${quizId}`
       );
+      console.log("auth");
       console.log(res.data);
     };
     fetch();

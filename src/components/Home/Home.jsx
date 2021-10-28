@@ -12,7 +12,8 @@ export default function Home() {
   const { start, pauseResume, reset, update } = useCountUp({
     ref: countUpRef,
     duration: 5,
-    end: 10000,
+    start: 100,
+    end: 0,
   });
   return (
     <>
@@ -49,7 +50,26 @@ export default function Home() {
               src="https://www.quizando.com/assets/money_won.png"
               alt=""
             />
-
+            {console.log(countUpRef)}
+            <div ref={countUpRef} />
+            {/* <button onClick={start}>Start</button>
+            <button
+              onClick={() => {
+                reset();
+                console.log(countUpRef.current.innerHTML);
+              }}
+            >
+              Reset
+            </button>
+            <button
+              onClick={() => {
+                console.log(countUpRef.current.innerHTML);
+                pauseResume();
+              }}
+            >
+              Pause/Resume
+            </button>
+            <button onClick={() => update(20000)}>Update</button> */}
             <h2>
               <CountUp
                 start={0}
@@ -81,9 +101,9 @@ export default function Home() {
       <div className="home_section_title">
         <h2 className="quiz__all">All Quizes</h2>
       </div>
-      <FreeQuiz />
+      {/* <FreeQuiz />
       <LiveQuiz />
-      <ClassicQuiz />
+      <ClassicQuiz /> */}
       {/* <div className="buttons__play">
         <div className="gradient__cont">
           <div

@@ -7,6 +7,7 @@ import {
   FormControl,
   Button,
 } from "@mui/material";
+import CountUp, { useCountUp } from "react-countup";
 import music from "../../music.mp3";
 import { Link, useParams } from "react-router-dom";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
@@ -14,16 +15,12 @@ import VolumeOffIcon from "@mui/icons-material/VolumeOff";
 import wrong_answer from "../../Wrong-answer.mp3";
 import correct_answer from "../../Correct-answer.mp3";
 import axios from "axios";
-import DelayComponent from "../DelayComponent";
 import radial from "../../radial_ray2.mp4";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { useContext } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import io from "socket.io-client";
 var socket = io("ws://13.233.83.134:8080/", { transports: ["websocket"] });
-// socket.on("connect", () => {
-//   console.log(socket.connected);
-// });
 
 const useAudio = (url, userToken) => {
   const [audio] = useState(new Audio(url));
@@ -52,11 +49,13 @@ function Rough({
   setNextQues,
   setchangeQuestion,
 }) {
-  //console.log(question._id);
+  const countUpRef = React.useRef(null);
+
+  console.log(countUpRef?.current?.innerHTML);
   let { quizId } = useParams();
   const userToken = JSON.parse(localStorage.getItem("user")) || null;
   const { user } = useContext(AuthContext);
-  console.log(user.user._id);
+  //console.log(user.user._id);
   const [playing, toggle] = useAudio(music, userToken);
   const [color, setColor] = useState(false);
   const [check, setcheck] = useState(-1);
@@ -91,7 +90,7 @@ function Rough({
   }
   let userId = user?.user._id;
   let roomId = quizId;
-
+  useEffect(() => {});
   // useEffect(() => {
   //   if (showNext === true || show) {
   //     setTimeout(() => {
@@ -102,17 +101,19 @@ function Rough({
 
   const next = async (e) => {
     setTimer(11500);
-    e.preventDefault();
+    //e.preventDefault();
     setSelected(null);
     setClasss(null);
     setButton({ one: "", two: "", three: "", four: "" });
     setQuestionIdx((prev) => ++prev);
-    setPoints(timer);
+
+    setPoints(countUpRef?.current?.innerHTML);
     setShow(false);
     setNext(true);
   };
 
   const handleSelectOption = async (x, type) => {
+    console.log(countUpRef?.current?.innerHTML);
     let answer = x;
     let questionId = question?._id;
     let URL;
@@ -123,10 +124,10 @@ function Rough({
         const res = await axios.post(URL);
         setCorrectOption(res.data.payload.correctOption);
         setSelected(x);
-        console.log(res.data);
-        console.log(x);
-        console.log(res.data.payload.correctOption);
-        console.log(res.data.payload.isCorrect);
+        //console.log(res.data);
+        //console.log(x);
+        //console.log(res.data.payload.correctOption);
+        //console.log(res.data.payload.isCorrect);
         if (x == res.data.payload.correctOption) {
           setButton((prev) => ({ ...prev, [type]: "select" }));
           const audioTune = new Audio(correct_answer);
@@ -134,17 +135,18 @@ function Rough({
           setColor(true);
           setcheck(1);
           setScore(res.data.payload.total);
+
           //setClasss("select");
-          console.log(classs);
+          //console.log(classs);
         } else {
           setButton((prev) => ({ ...prev, [type]: "wrong" }));
           const audioTune = new Audio(wrong_answer);
           audioTune.play();
-          console.log(x);
-          console.log(res.data.payload.correctOption);
+          //console.log(x);
+          //console.log(res.data.payload.correctOption);
           setColor(false);
           setClasss("wrong");
-          console.log(classs);
+          //console.log(classs);
         }
 
         setQuestionRem(25 - questionIdx - 1);
@@ -152,12 +154,12 @@ function Rough({
         console.log(error);
       }
     } else {
-      console.log("submitAnswer");
+      //console.log("submitAnswer");
 
       socket.emit("submitAnswer", { userId, roomId, answer, questionId });
 
       socket.on("submitAnswerResponse", (data) => {
-        console.log(data);
+        //console.log(data);
         if (data.isCorrect === true) {
           //setButton((prev) => ({ ...prev, [type]: "select" }));
           const audioTune = new Audio(correct_answer);
@@ -176,8 +178,17 @@ function Rough({
       // setClasss(null);
     }
   };
-
-  return question ? (
+  const { start, pauseResume, reset, update } = useCountUp({
+    ref: countUpRef,
+    duration: 15,
+    start: 10000,
+    end: 0,
+    delay: 4,
+  });
+  // if (question) {
+  //   update(20000);
+  // }
+  return (
     <div>
       <div className="detail__question">
         <div className="detail__wrapper">
@@ -196,9 +207,9 @@ function Rough({
               <div className="answer__section detail__content">
                 {!show && !showNext ? (
                   <>
-                    {/* <div id="bounce-in" className="bounce-in">
-                    <h1 className="bounce-in-text">Get Ready</h1>
-                  </div> */}
+                    <div id="bounce-in" className="bounce-in">
+                      <h1 className="bounce-in-text">Get Ready</h1>
+                    </div>
                   </>
                 ) : showNext ? (
                   <div id="bounce-in" className="bounce-in">
@@ -219,9 +230,13 @@ function Rough({
                             value={question.options[0]._id}
                             // control={<Radio />}
                             key={0}
-                            onClick={() =>
-                              handleSelectOption(question.options[0]._id, "one")
-                            }
+                            onClick={() => {
+                              pauseResume();
+                              handleSelectOption(
+                                question.options[0]._id,
+                                "one"
+                              );
+                            }}
                           >
                             <p className="answer_number">1</p>
                             <p
@@ -240,9 +255,13 @@ function Rough({
                             // control={<Radio />}
                             key={1}
                             name="two"
-                            onClick={() =>
-                              handleSelectOption(question.options[1]._id, "two")
-                            }
+                            onClick={() => {
+                              pauseResume();
+                              handleSelectOption(
+                                question.options[1]._id,
+                                "two"
+                              );
+                            }}
                             className="answer_animated animated flipInX"
                           >
                             <p className="answer_number">2</p>
@@ -259,14 +278,14 @@ function Rough({
                           <button
                             className={`${button.three} answer_animated animated flipInX`}
                             value={question.options[2]._id}
-                            // control={<Radio />}
                             key={2}
-                            onClick={() =>
+                            onClick={() => {
+                              pauseResume();
                               handleSelectOption(
                                 question.options[2]._id,
                                 "three"
-                              )
-                            }
+                              );
+                            }}
                           >
                             <p className="answer_number">3</p>
                             <p
@@ -283,15 +302,15 @@ function Rough({
                           <button
                             className={`${button.four} answer_animated animated flipInX`}
                             value={question.options[3]._id}
-                            // control={<Radio />}
                             key={3}
                             name="four"
-                            onClick={() =>
+                            onClick={() => {
+                              pauseResume();
                               handleSelectOption(
                                 question.options[3]._id,
                                 "four"
-                              )
-                            }
+                              );
+                            }}
                           >
                             <p className="answer_number">4</p>
                             <p
@@ -309,7 +328,10 @@ function Rough({
                     {setNextQues === true ? (
                       <Button
                         variant="contained"
-                        onClick={next}
+                        onClick={() => {
+                          next();
+                          start();
+                        }}
                         endIcon={<NavigateNextIcon sx={{ color: "#ffff" }} />}
                       >
                         Next
@@ -347,12 +369,10 @@ function Rough({
               </div>
             </div>
             <div className="quiz_item_info">
-              <div className="inner_div">
-                {timer > 10000 ? (
-                  <div className="text_large">10000</div>
-                ) : (
-                  <div className="text_large">{timer}</div>
-                )}
+              <div className="inner_div text_large">
+                <div className="text_large">
+                  <div ref={countUpRef}></div>
+                </div>
 
                 <div className="subtext">Points</div>
               </div>
@@ -373,7 +393,7 @@ function Rough({
         </div>
       </div>
     </div>
-  ) : null;
+  );
 }
 
 export default Rough;

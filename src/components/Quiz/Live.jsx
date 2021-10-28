@@ -17,7 +17,7 @@ function Live() {
   let { quizId } = useParams();
   const history = useHistory();
   const { user } = useContext(AuthContext);
-  console.log(user.user._id);
+  //console.log(user.user._id);
   // setQuestionIdx={setQuestionIdx}
   //           question={questions[questionIdx]}
   //           ResultId={resultId}
@@ -48,11 +48,9 @@ function Live() {
   //     console.log("Got disconnect!");
   //   });
   const handleDisconnect = () => {
-    socket.emit("end", function () {
-      console.log("disconnected");
-      socket.disconnect(true);
-    });
-    //history.push("/");
+    //console.log("disconnected");
+    socket.emit("end");
+    history.push("/");
   };
 
   console.log("live");
