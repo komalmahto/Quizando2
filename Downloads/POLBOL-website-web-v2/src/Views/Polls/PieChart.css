@@ -1,16 +1,14 @@
 .filter__bar {
-  width: 100%;
   left: 0;
   overflow-x: hidden;
   padding-top: 20px;
   overflow: auto;
-  flex: 0.12;
-  box-shadow: 3px 3px 5px 0px rgba(132, 133, 93, 0.8);
-  -webkit-box-shadow: 3px 3px 5px 0px rgba(132, 133, 93, 0.8);
-  -moz-box-shadow: 3px 3px 5px 0px rgba(132, 133, 93, 0.8);
+  width: 13%;
+  position: fixed;
+
   display: flex;
   flex-direction: column;
-  height: 100vh;
+
   padding: 0 auto !important;
 }
 .MuiListItem-root.MuiListItem-gutters.css-1nxmd3h-MuiListItem-root {
@@ -24,15 +22,13 @@
   min-width: 0;
 }
 .filter__bar2 {
-  height: 100vh; /* Full-height: remove this if you want "auto" height */
-  flex: 0.17; /* Set the width of the sidebar */
+  width: 17%;
+
   right: 0;
-  overflow-x: hidden; /* Disable horizontal scroll */
+  position: fixed;
+  overflow-x: hidden;
   padding: 22px 7px;
   overflow: auto;
-  box-shadow: -3px 3px 5px 0px rgba(132, 133, 93, 0.75);
-  -webkit-box-shadow: -3px 3px 5px 0px rgba(132, 133, 93, 0.75);
-  -moz-box-shadow: -3px 3px 5px 0px rgba(132, 133, 93, 0.75);
 }
 .sub {
   width: 70%;

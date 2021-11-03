@@ -9,23 +9,8 @@ import "./PieChart.css"
 import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem"
 import ListItemButton from "@mui/material/ListItemButton"
-import ListItemIcon from "@mui/material/ListItemIcon"
-import ListItemText from "@mui/material/ListItemText"
-import Checkbox from "@mui/material/Checkbox"
-import IconButton from "@mui/material/IconButton"
-import CommentIcon from "@mui/icons-material/Comment"
-import {
-  Typography,
-  TextField,
-  Button,
-  Grid,
-  Radio,
-  RadioGroup,
-  FormControlLabel,
-  FormControl,
-  createTheme,
-  ThemeProvider,
-} from "@mui/material"
+
+import { Typography, Grid } from "@mui/material"
 import arr from "./PieChart_Data"
 import Box from "@mui/material/Box"
 import Paper from "@mui/material/Paper"
@@ -36,7 +21,7 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: "center",
   color: theme.palette.text.secondary,
 }))
-//key={key1} className="box"
+
 function PieCharts(props) {
   const [checked, setChecked] = React.useState([0])
 
@@ -119,17 +104,6 @@ function PieCharts(props) {
       setFilters({ ...filters, [elem1]: obj })
     }
     console.log(filters)
-    // const currentIndex = checked.indexOf(e.target.value)
-    // const newChecked = [...checked]
-
-    // if (currentIndex === -1) {
-    //   newChecked.push(e.target.value)
-    // } else {
-    //   newChecked.splice(currentIndex, 1)
-    // }
-
-    // setChecked(newChecked)
-    // setShow(!show)
   }
 
   const handleDelete = (e) => {
@@ -197,12 +171,17 @@ function PieCharts(props) {
           ""
         )}
       </div>
-      <div style={{ display: "flex", margin: "0" }}>
+      <div
+        style={{
+          display: "flex",
+          margin: "0",
+        }}
+      >
         <div className="filter__bar">
           <div
             style={{
               display: "flex",
-              margin: "0 5px",
+              margin: "0 10px",
               flexDirection: "column",
             }}
           >
@@ -219,24 +198,14 @@ function PieCharts(props) {
                     const labelId = `checkbox-list-label-${value}`
                     return (
                       <ListItem disablePadding>
-                        <ListItemButton
-                          key={key}
-                          id={"gender," + value + ":" + key}
-                          className={value}
-                          onClick={handleClick}
-                        >
-                          {/* <Checkbox
-                            edge="start"
-                            checked={checked.indexOf(value) !== -1}
-                            tabIndex={-1}
-                            disableRipple
-                            inputProps={{ "aria-labelledby": labelId }}
-                          /> */}
+                        <ListItemButton>
                           <div style={{ marginRight: "7%" }}>
                             <input
                               type="checkbox"
-                              placeHolder="komal"
-                              onClick={handleToggle}
+                              key={key}
+                              id={"gender," + value + ":" + key}
+                              className={value}
+                              onClick={handleClick}
                             />
                           </div>
                           {value}{" "}
@@ -254,14 +223,15 @@ function PieCharts(props) {
               {data
                 ? Object.keys(data.data.payload.age).map((value, key) => (
                     <ListItem disablePadding>
-                      <ListItemButton
-                        key={key}
-                        id={"age," + value + ":" + key}
-                        className={value}
-                        onClick={handleClick}
-                      >
+                      <ListItemButton>
                         <div style={{ marginRight: "7%" }}>
-                          <input type="checkbox" />
+                          <input
+                            type="checkbox"
+                            key={key}
+                            id={"age," + value + ":" + key}
+                            className={value}
+                            onClick={handleClick}
+                          />
                         </div>
                         {value}
                         <FiCheck id={"check," + value} className={"check"} />
@@ -297,79 +267,87 @@ function PieCharts(props) {
             </Dropdown>
           </div>
         </div>
-        <Box style={{ flex: "0.7", overflowY: "scroll" }} sx={{ flexGrow: 1 }}>
-          <Grid container spacing={1}>
-            {Object.keys(filters).map((value, key1) =>
-              Object.keys(filters[value]).length > 0 ? (
-                <>
-                  <h4 style={{ margin: "0 auto", textTransform: "uppercase" }}>
-                    {value !== "nofilters" ? value : ""}
-                  </h4>
+        <div
+          style={{
+            width: "70%",
+            margin: "0 17% 0 13%",
 
-                  <Grid
-                    container
-                    spacing={1}
-                    style={{
-                      margin: "0 auto",
-                      textAlign: "center",
-                      display: "flex",
-                    }}
-                  >
-                    {Object.keys(filters[value]).map((val, idx) =>
-                      labels != null ? (
-                        <Grid
-                          columns={{ xs: 4, sm: 8, md: 12 }}
-                          item
-                          xs={12}
-                          lg={4}
-                          rowSpacing={1}
-                          style={{
-                            textAlign: "center",
-                            display: "flex",
-                            margin: "0 auto",
-                          }}
-                        >
-                          {idx === Object.keys(filters[value]).length - 1 ? (
-                            <Chart
-                              key={idx}
-                              options={{
-                                ...graphOption.options,
-                                legend: legends1,
-                                title: { text: val, align: "center" },
-                              }}
-                              series={filters[value][val]}
-                              type="pie"
-                              width="300px"
-                              style={{ margin: "0 auto" }}
-                            />
-                          ) : (
-                            <Chart
-                              key={idx}
-                              options={{
-                                ...graphOption.options,
-                                legend: legends1,
-                                title: { text: val, align: "center" },
-                              }}
-                              series={filters[value][val]}
-                              type="pie"
-                              width="300px"
-                            />
-                          )}
-                        </Grid>
-                      ) : (
-                        <></>
-                      )
-                    )}
-                  </Grid>
-                </>
-              ) : (
-                <></>
-              )
-            )}
-            <></>
-          </Grid>
-        </Box>
+            overflowY: "scroll",
+          }}
+        >
+          <Box sx={{ flexGrow: 1 }}>
+            <Grid container spacing={1}>
+              {Object.keys(filters).map((value, key1) =>
+                Object.keys(filters[value]).length > 0 ? (
+                  <>
+                    <h4
+                      style={{ margin: "0 auto", textTransform: "uppercase" }}
+                    >
+                      {value !== "nofilters" ? value : ""}
+                    </h4>
 
+                    <Grid
+                      container
+                      spacing={1}
+                      style={{
+                        margin: "0 auto",
+                        textAlign: "center",
+                        display: "flex",
+                      }}
+                    >
+                      {Object.keys(filters[value]).map((val, idx) =>
+                        labels != null ? (
+                          <Grid
+                            columns={{ xs: 12, sm: 6, md: 6 }}
+                            item
+                            rowSpacing={1}
+                            style={{
+                              textAlign: "center",
+                              display: "flex",
+                              margin: "0 auto",
+                            }}
+                          >
+                            {idx === Object.keys(filters[value]).length - 1 ? (
+                              <Chart
+                                key={idx}
+                                options={{
+                                  ...graphOption.options,
+                                  legend: legends1,
+                                  title: { text: val, align: "center" },
+                                }}
+                                series={filters[value][val]}
+                                type="pie"
+                                width="300px"
+                                style={{ margin: "0 auto" }}
+                              />
+                            ) : (
+                              <Chart
+                                key={idx}
+                                options={{
+                                  ...graphOption.options,
+                                  legend: legends1,
+                                  title: { text: val, align: "center" },
+                                }}
+                                series={filters[value][val]}
+                                type="pie"
+                                width="300px"
+                              />
+                            )}
+                          </Grid>
+                        ) : (
+                          <></>
+                        )
+                      )}
+                    </Grid>
+                  </>
+                ) : (
+                  <></>
+                )
+              )}
+              <></>
+            </Grid>
+          </Box>
+        </div>
         <div className="filter__bar2" style={{}}>
           {arr.map((item, idx) => {
             return (
@@ -382,186 +360,8 @@ function PieCharts(props) {
               </div>
             )
           })}
-
-          {/* <FormControl component="fieldset">
-            <RadioGroup
-              column
-              aria-label="gender"
-              name="gender"
-              onChange={handleOnChange}
-              required
-            >
-              <FormControlLabel
-                value="female"
-                control={<Radio />}
-                label="12 to 17"
-              />
-              <FormControlLabel
-                value="male"
-                control={<Radio />}
-                label="18 to 24"
-              />
-              <FormControlLabel
-                value="other"
-                control={<Radio />}
-                label="25 to 34"
-              />
-              <FormControlLabel
-                value="other"
-                control={<Radio />}
-                label="35 to 44"
-              />
-              <FormControlLabel
-                value="other"
-                control={<Radio />}
-                label="45 to 59"
-              />
-              <FormControlLabel
-                value="other"
-                control={<Radio />}
-                label="60 and above"
-              />
-            </RadioGroup>
-          </FormControl>
-          <FormControl component="fieldset">
-            <RadioGroup
-              column
-              aria-label="gender"
-              name="gender"
-              onChange={handleOnChange}
-              required
-            >
-              <FormControlLabel
-                value="female"
-                control={<Radio />}
-                label="12 to 17"
-              />
-              <FormControlLabel
-                value="male"
-                control={<Radio />}
-                label="18 to 24"
-              />
-              <FormControlLabel
-                value="other"
-                control={<Radio />}
-                label="25 to 34"
-              />
-              <FormControlLabel
-                value="other"
-                control={<Radio />}
-                label="35 to 44"
-              />
-              <FormControlLabel
-                value="other"
-                control={<Radio />}
-                label="45 to 59"
-              />
-              <FormControlLabel
-                value="other"
-                control={<Radio />}
-                label="60 and above"
-              />
-            </RadioGroup>
-          </FormControl>
-
-          <FormControl component="fieldset">
-            <RadioGroup
-              column
-              aria-label="gender"
-              name="gender"
-              onChange={handleOnChange}
-              required
-            >
-              <FormControlLabel
-                value="female"
-                control={<Radio />}
-                label="12 to 17"
-              />
-              <FormControlLabel
-                value="male"
-                control={<Radio />}
-                label="18 to 24"
-              />
-              <FormControlLabel
-                value="other"
-                control={<Radio />}
-                label="25 to 34"
-              />
-              <FormControlLabel
-                value="other"
-                control={<Radio />}
-                label="35 to 44"
-              />
-              <FormControlLabel
-                value="other"
-                control={<Radio />}
-                label="45 to 59"
-              />
-              <FormControlLabel
-                value="other"
-                control={<Radio />}
-                label="60 and above"
-              />
-            </RadioGroup>
-          </FormControl>
-          <FormControl component="fieldset">
-            <RadioGroup
-              column
-              aria-label="gender"
-              name="gender"
-              onChange={handleOnChange}
-              required
-            >
-              <FormControlLabel
-                value="female"
-                control={<Radio />}
-                label="12 to 17"
-              />
-              <FormControlLabel
-                value="male"
-                control={<Radio />}
-                label="18 to 24"
-              />
-              <FormControlLabel
-                value="other"
-                control={<Radio />}
-                label="25 to 34"
-              />
-              <FormControlLabel
-                value="other"
-                control={<Radio />}
-                label="35 to 44"
-              />
-              <FormControlLabel
-                value="other"
-                control={<Radio />}
-                label="45 to 59"
-              />
-              <FormControlLabel
-                value="other"
-                control={<Radio />}
-                label="60 and above"
-              />
-            </RadioGroup>
-          </FormControl> */}
         </div>
       </div>
-      {/* <div className="fills">
-        {Object.keys(filters).map((value, key) => {
-          return Object.keys(filters[value]).map((val, idx) => {
-            return (
-              <span
-                key={idx}
-                className={val}
-                id="selected"
-                onClick={handleDelete}
-              >
-                {val}
-              </span>
-            )
-          })
-        })}
-      </div> */}
     </>
   )
 }
