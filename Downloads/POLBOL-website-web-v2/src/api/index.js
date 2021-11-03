@@ -1,0 +1,61 @@
+import axios from "axios";
+
+const api = axios.create({
+  baseURL: "https://backend.polbol.in/backend",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+// API CALLS
+
+export const getLatestNews = (english) =>
+  api.get(`/notification/latest?language=${english}`);
+
+// Poll Routes
+export const getCommonPolls = () => api.get(`/common/polls`);
+export const getHighlightedPolls = () =>
+  api.get(`/polls/highlighted?language=english`);
+export const getActivePolls = () => api.get(`/common/polls?mode=active`);
+export const getExpiredPolls = () => api.get(`/common/polls?mode=expired`);
+export const getFilteredPolls = (mode, categories) =>
+  api.get(`/common/polls?mode=${mode}&categories=${categories}`);
+export const getPollResults = (pollId) =>
+  api.get(`/poll/results/guest?id=${pollId}`);
+
+export const getActiveAwards = () => api.get(`/award/fetchAwardsAndCategories`);
+export const getCommonPetitions = () => api.get("/common/petitions");
+export const getHighlightedPetitions = () =>
+  api.get(`/petitions/highlighted?language=english`);
+export const getActivePetitions = () =>
+  api.get(`/common/petitions`);
+export const getExpiredPetitions = () =>
+  api.get(`/common/petitions?mode=expired`);
+export const getFilteredPetitions = (categories) =>
+  api.get(`common/petitions?categories=${categories}`);
+
+  export const getFilteredAwards = (mode, categories) =>
+  api.get(`/awards/award/fetchAwardsAndCategories?mode=${mode}&categories=${categories}`);
+  export const getPetitionResults = (petitionId) =>
+  api.get(`/petition/${petitionId}`);
+
+  export const getNews=(lang)=>
+    api.get(`/news?hindi=${lang.language==="Hindi"?true:false}`);
+  
+  export const getFilteredNews = (categories,lang) =>
+  api.get(`/news?hindi=${lang.language==="Hindi"?true:false}&categories=${categories}`);
+
+  export const getExpiredAwards=()=>
+    api.get('/award/fetchAwardsAndCategories?mode=expired');
+  
+  export const isAuthenticated = () => {
+    if (typeof window == "undefined") {
+      return false;
+    }
+  
+    if (localStorage.getItem("authToken")) {
+      return JSON.parse(localStorage.getItem("authToken"));
+    } else {
+      return false;
+    }
+  };
