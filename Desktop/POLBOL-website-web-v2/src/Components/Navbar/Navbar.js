@@ -1,0 +1,191 @@
+import { useState } from "react"
+import { Link } from "react-router-dom"
+import styles from "./Navbar.module.css"
+import Modal from "../Modal/Modal"
+import { connect } from "react-redux"
+import { fetchToken } from "../../redux/Actions/AuthActions"
+import { logout } from "../../redux/Actions/AuthActions"
+import { updateLanguage } from "../../redux/Actions"
+import hind from "./ind.png"
+import eng from "./United-kingdom_flag_icon_round.svg.png"
+import { Menu, Dropdown } from "antd"
+import { DownOutlined } from "@ant-design/icons"
+import image from "./Logo.png"
+
+const Navbar = ({
+  auth: { token, user },
+  logout,
+  fetchToken,
+  updateLanguage,
+  lang,
+}) => {
+  const [displayMenu, setDisplayMenu] = useState(false)
+  const [show, setShow] = useState(false)
+  const clickHandler = () => {
+    setShow(!show)
+  }
+  const menu = (
+    <Menu>
+      <Menu.Item key="0">
+        <Link className={styles.dropItem} to={`/user/${user._id}`}>
+          <i className="fas fa-user-circle"></i> Profile
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="1">
+        <Link className={styles.dropItem} to={`/user/${user._id}/wallet`}>
+          <i className="fas fa-wallet"></i> Wallet
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="1">
+        <span onClick={logout} className={`${styles.auth} ${styles.dropItem}`}>
+          <i className="fas fa-sign-out-alt"></i>
+          Logout
+        </span>
+      </Menu.Item>
+    </Menu>
+  )
+  const handleLanguage = () => {
+    if (lang.language === "English") {
+      updateLanguage("Hindi")
+    }
+    if (lang.language === "Hindi") {
+      updateLanguage("English")
+    }
+  }
+
+  return (
+    <>
+      <nav className={styles.navbar}>
+        <div className={styles.container}>
+          <div className={styles.logo}>
+            <img src={image} alt="" style={{ width: "100px", zIndex: "20" }} />
+          </div>
+          <ul className={styles.links}>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/polls">Poll</Link>
+            </li>
+            <li>
+              <Link to="/awards">Awards</Link>
+            </li>
+            <li>
+              <Link to="/petitions"> Petition</Link>
+            </li>
+            <li>
+              {" "}
+              <Link to="/news">News</Link>
+            </li>
+            <li>
+              <Link to="/livetv">TV</Link>
+            </li>
+            <li>
+              <Link to="/quiz">Quiz</Link>
+            </li>
+          </ul>
+          <div className={styles.navRight}>
+            <span onClick={handleLanguage}>
+              {lang.language === "Hindi" ? (
+                <span className={styles.lang}>
+                  <img src={hind} alt="z" width="20" height="20" />
+                  {lang.language}
+                </span>
+              ) : (
+                <span className={styles.lang}>
+                  <img src={eng} height="20" width="20" alt="image" />
+                  {lang.language}
+                </span>
+              )}
+            </span>
+
+            {token && (
+              <Dropdown overlay={menu} trigger={["click"]}>
+                <a
+                  className={styles.antdDrop}
+                  onClick={(e) => e.preventDefault()}
+                >
+                  <i className="fas fa-user-circle"></i>&nbsp; <DownOutlined />
+                </a>
+              </Dropdown>
+            )}
+            {!token && (
+              <span onClick={clickHandler} className={styles.auth}>
+                {" "}
+                Login
+              </span>
+            )}
+            {/* {token&& <Link to="/" className={styles.ico}><i className="fas fa-user-circle"></i></Link>}
+            {console.log(user._id)}
+            {token&& <Link to={`/user/${user._id}/wallet`} className={styles.ico}><i className="fas fa-wallet"></i></Link>}
+            {!token ? (
+              <span onClick={clickHandler} className={styles.auth}>
+                {" "}
+                Login
+              </span>
+            ) : (
+              <span onClick={logout} className={styles.auth}> Logout</span>
+            )} */}
+          </div>
+          <div
+            className={styles.hamburger}
+            onClick={() => setDisplayMenu(true)}
+          >
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+        <ul
+          className={
+            displayMenu ? `${styles.menu} ${styles.display}` : `${styles.menu}`
+          }
+        >
+          <li className={styles.cross} onClick={() => setDisplayMenu(false)}>
+            <i className="fas fa-times"></i>
+          </li>
+          <li>
+            <Link to="/" onClick={() => setDisplayMenu(false)}>
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link to="/polls" onClick={() => setDisplayMenu(false)}>
+              Poll
+            </Link>
+          </li>
+          <li>Awards</li>
+          <li>
+            {" "}
+            <Link to="/petitions" onClick={() => setDisplayMenu(false)}>
+              {" "}
+              Petition
+            </Link>
+          </li>
+          <li>News</li>
+          <li>TV</li>
+          <li>Quiz</li>
+        </ul>
+      </nav>
+      <Modal
+        fetchToken={(token, user) => fetchToken(token, user)}
+        show={show}
+        onHide={() => setShow(false)}
+      />
+    </>
+  )
+}
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  lang: state.lang,
+})
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchToken: (token, user) => dispatch(fetchToken(token, user)),
+    logout: () => dispatch(logout()),
+    updateLanguage: (lang) => dispatch(updateLanguage(lang)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar)

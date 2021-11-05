@@ -1,0 +1,161 @@
+.center{
+    /* margin-left: auto;
+    margin-right: auto; */
+    display: block;
+    width: 20%;
+    height: 20%;
+    /* margin-bottom: 2rem; */
+    border: 2px solid grey;
+    border-radius: 30px;
+}
+.container{
+    background-color: #FDF9F6;
+    margin-bottom: 30px;
+    width: 90%;
+    /* margin: 7px auto; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+   
+}
+.MuiFormGroup-root{
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+.container:hover{
+    background-color: #fad5b8;
+}
+.list{
+    text-align: center;
+    padding: 10px;
+    margin-left: 2rem;
+
+   
+}
+.list1{
+    margin-left: 20px;
+    font-size: 10px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.backbtn,.submitbtn{
+   background-color: #84855D;
+   color: white;
+   padding: 0.5rem 1rem;
+   cursor: pointer;
+   border-radius: 10px;
+
+}
+.backbtn{
+    background-color: #5b5c3f;
+}
+
+.sharebtn{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #84855D;
+    font-size: 1.3rem;
+    cursor: pointer;
+    
+}
+/* .backbtn{
+    position: absolute;
+    top: 20px;
+    left: 180px;
+} */
+.cont{
+    width: 70%;
+    margin: 20px auto;
+}
+.rel{
+display: flex;
+align-items: center;
+justify-content: center;
+margin-bottom: 2rem;
+position: relative;
+}
+.share{
+    position: absolute;
+    margin:10px;
+    background-color: #84855D;  
+    display: inline-block;
+    height:25px;
+    right:210px;
+   bottom:150px;
+   margin-bottom: 30px;
+   font-size: 18px;
+}
+.rating{
+    margin-top: 30px;
+    font-size: 20px;
+    height:300px;
+    margin-left: 350px;
+}
+
+.actions{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px auto;
+    width: 80%;
+
+
+}
+.slidecontainer{
+    width: 80% ;
+    margin: 40px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.opcont{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+
+.carousel{
+    width: 100%;
+    margin: 50px auto;
+    
+}
+
+.carouselCard{
+    height: 120px;
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    margin-right: 1rem;
+    background-color: pink;
+    border-radius: 10px;
+    /* border: 2px solid pink; */
+    
+}
+.carouselImage{
+    height: 120px;
+    width: 100px;
+    background-color: red;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 10px;
+}
+.carouselText{
+    margin-left: 10px;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.voteBtn{
+    background-color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    cursor: pointer;
+}
